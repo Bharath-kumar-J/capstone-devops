@@ -1,0 +1,74 @@
+{
+  "id": null,
+  "uid": "adrzckc",
+  "title": "Monitoring Dashboard",
+  "tags": ["capstone"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-6h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Requests Per Second",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 10, "w": 10, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (endpoint, http_status) (rate(app_requests_total[1m]))",
+          "legendFormat": "{{endpoint}} {{http_status}}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Average Response Time",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "gridPos": { "h": 10, "w": 10, "x": 10, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by (endpoint) (rate(app_request_latency_seconds_sum[1m])) / sum by (endpoint) (rate(app_request_latency_seconds_count[1m]))",
+          "legendFormat": "{{endpoint}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Active Requests",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 10, "x": 0, "y": 10 },
+      "targets": [
+        { "refId": "A", "expr": "app_requests_in_progress", "legendFormat": "active requests" }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "CPU Usage",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percent" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 10, "x": 10, "y": 10 },
+      "targets": [
+        { "refId": "A", "expr": "rate(process_cpu_seconds_total{job=\"capstone\"}[1m]) * 100", "legendFormat": "cpu %" }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Memory Usage",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "bytes" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 10, "x": 0, "y": 18 },
+      "targets": [
+        { "refId": "A", "expr": "process_resident_memory_bytes{job=\"capstone\"}", "legendFormat": "resident memory" }
+      ]
+    }
+  ]
+}

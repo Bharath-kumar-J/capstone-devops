@@ -1,8 +1,6 @@
 global:
   scrape_interval: 5s
-
 scrape_configs:
   - job_name: 'capstone'
     static_configs:
-      - targets:
-          - 'host.docker.internal:30080'
+      - targets: ['host.docker.internal:30080']

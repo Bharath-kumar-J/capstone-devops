@@ -1,5 +1,16 @@
 # 🚀 DevOps Capstone Project
 
+## Quick Demo
+
+Start Docker Desktop first, then open Ubuntu/WSL and run:
+
+```bash
+cd ~/devops-labs/capstone
+sh start.sh
+```
+
+That starts the Kind Kubernetes cluster, deploys the Flask app and Redis, starts Prometheus and Grafana, reloads the provisioned dashboards, and prints the app/monitoring URLs.
+
 ## Overview
 
 Hi this is Bharath Kumar, This project demonstrates an end-to-end DevOps workflow by deploying a Python Flask application with Redis, containerizing it using Docker, orchestrating it with Kubernetes (Kind), monitoring it using Prometheus and Grafana, and automating validation using GitHub Actions.

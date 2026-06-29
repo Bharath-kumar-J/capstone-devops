@@ -1,0 +1,34 @@
+{
+  "id": null,
+  "uid": "ad9m4hn",
+  "title": "CPU Usage",
+  "tags": ["capstone"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-6h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "CPU Usage",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": { "drawStyle": "line", "lineInterpolation": "linear", "fillOpacity": 0, "showPoints": "auto" }
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 10, "w": 10, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(process_cpu_seconds_total{job=\"capstone\"}[1m]) * 100",
+          "legendFormat": "cpu %"
+        }
+      ]
+    }
+  ]
+}

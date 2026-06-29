@@ -1,0 +1,29 @@
+{
+  "id": null,
+  "uid": "capstone",
+  "title": "Capstone Pipeline",
+  "tags": ["capstone"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-15m", "to": "now" },
+  "panels": [
+    { "id": 1, "type": "timeseries", "title": "Requests / sec (all routes)",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [ { "refId": "A", "expr": "sum(rate(app_requests_total[1m]))" } ] },
+    { "id": 2, "type": "timeseries", "title": "p95 latency (seconds)",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [ { "refId": "A", "expr": "histogram_quantile(0.95, sum(rate(app_request_latency_seconds_bucket[1m])) by (le))" } ] },
+    { "id": 3, "type": "timeseries", "title": "In-flight requests",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [ { "refId": "A", "expr": "app_requests_in_progress" } ] },
+    { "id": 4, "type": "timeseries", "title": "Requests / sec per route",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [ { "refId": "A", "expr": "sum by (endpoint) (rate(app_requests_total[1m]))", "legendFormat": "{{endpoint}}" } ] }
+  ]
+}

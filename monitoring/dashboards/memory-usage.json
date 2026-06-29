@@ -1,0 +1,34 @@
+{
+  "id": null,
+  "uid": "advgwvc",
+  "title": "Memory Usage",
+  "tags": ["capstone"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": { "from": "now-6h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Memory Usage",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "custom": { "drawStyle": "line", "lineInterpolation": "linear", "fillOpacity": 0, "showPoints": "auto" }
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 10, "w": 10, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "process_resident_memory_bytes{job=\"capstone\"}",
+          "legendFormat": "resident memory"
+        }
+      ]
+    }
+  ]
+}
